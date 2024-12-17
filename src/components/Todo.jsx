@@ -16,7 +16,7 @@ const Todo = () => {
             <TodoList colors={colors} filter={filter} />
 
             {/* Action buttons */}
-            <Footer colors={colors} setFilter={setFilter} />
+            <Footer colors={colors} filter={filter} setFilter={setFilter} />
         </div>
     );
 };

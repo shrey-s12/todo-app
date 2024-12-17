@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setColorFilter } from '../slices/filtersSlice';
+import { setColorsFilter } from '../slices/filtersSlice';
 
 const FilterByColor = ({ colors }) => {
     const dispatch = useDispatch();
 
     const handleColorFilterChange = (color) => {
-        dispatch(setColorFilter({ color }));
+        dispatch(setColorsFilter({ color }));
     };
 
     return (
@@ -16,14 +16,12 @@ const FilterByColor = ({ colors }) => {
                 {colors.map((color, index) => (
                     <label key={index} className="flex items-center space-x-2">
                         <input
-                            type="radio"
-                            name="color"
-                            value={color}
+                            type="checkbox"
                             onChange={() => handleColorFilterChange(color)}
                             className="form-radio h-5 w-5 text-blue-600"
                         />
                         <span
-                            className={`text-sm font-medium px-2 py-1 rounded-md bg-${color}-100 text-${color}-800`}
+                            className={`text-sm font-medium px-2 py-1 rounded-md bg-${color}-100 text-black`}
                         >
                             {color}
                         </span>

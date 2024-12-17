@@ -4,14 +4,14 @@ import RemainingTodos from './RemainingTodos';
 import FilterByStatus from './FilterByStatus';
 import FilterByColor from './FilterByColor';
 
-const Footer = ({ colors, setFilter }) => {
+const Footer = ({ colors, filter, setFilter }) => {
   return (
     <div className="flex justify-around">
       <ActionTodo />
 
       <RemainingTodos />
 
-      <FilterByStatus setFilter={setFilter} />
+      <FilterByStatus filter={filter} setFilter={setFilter} />
 
       <FilterByColor colors={colors} />
     </div>
