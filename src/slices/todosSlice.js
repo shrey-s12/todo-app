@@ -22,9 +22,10 @@ const todosSlice = createSlice({
     reducers: {
         addTodo: (state, action) => {
             const newTodo = {
-                text: action.payload.newTodo,
                 id: generateNewId(state),
+                text: action.payload.newTodo,
                 completed: false,
+                color: action.payload.color
             };
             state.todos.push(newTodo);
         },
@@ -55,11 +56,18 @@ const todosSlice = createSlice({
                     state.todos = state.todos.filter((todo) => todo.completed !== true);
                 }
             })
-        }
+        },
+        updatedColor: (state, action) => {
+            const { id, color } = action.payload;
+            const todo = state.todos.find((todo) => todo.id === id);
+            if (todo) {
+                todo.color = color;
+            }
+        },
     }
 })
 
-export const { addTodo, deleteTodo, toggleComplete, allCompleted, allIncompleted, allClear } = todosSlice.actions;
+export const { addTodo, deleteTodo, toggleComplete, allCompleted, allIncompleted, allClear, updatedColor } = todosSlice.actions;
 export default todosSlice.reducer;
 
 export const selectTodos = state => state.todosKeyInStore.todos;

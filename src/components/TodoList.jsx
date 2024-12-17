@@ -1,10 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTodo, selectTodos, toggleComplete } from '../slices/todosSlice';
+import { deleteTodo, selectTodos, toggleComplete, updatedColor } from '../slices/todosSlice';
+import { selectColorFilter } from '../slices/filtersSlice';
 
 const TodoList = ({ colors, filter }) => {
 
   const allTodos = useSelector(selectTodos);
+  const selectedColorFilter = useSelector(selectColorFilter);
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
@@ -17,7 +19,14 @@ const TodoList = ({ colors, filter }) => {
     dispatch(toggleComplete({ id }));
   }
 
+  const handleColorChange = (id, color) => {
+    dispatch(updatedColor({ id, color }));
+  };
+
   const filteredTodos = allTodos.filter((todo) => {
+    if (selectedColorFilter) {
+      return todo.color === selectedColorFilter;
+    }
     if (filter === "active") {
       return !todo.completed;
     }
@@ -54,14 +63,21 @@ const TodoList = ({ colors, filter }) => {
             <div className="flex items-center space-x-4">
               <select
                 value={todo.color}
-                className="px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                onChange={(e) => handleColorChange(todo.id, e.target.value)}
+                className={`px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-${todo.color}-100 text-${todo.color}-800`}
               >
+                <option value="">No Filter</option>
                 {colors.map((color, index) => (
-                  <option key={index} value={color}>
+                  <option
+                    key={index}
+                    value={color}
+                    className={`bg-${color}-100 text-${color}-800`}
+                  >
                     {color}
                   </option>
                 ))}
               </select>
+
 
               <button
                 onClick={() => handleDelete(todo.id)}

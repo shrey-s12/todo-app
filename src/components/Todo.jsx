@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 const Todo = () => {
     const [filter, setFilter] = useState("all");
-    const colors = ['Green', 'Blue', 'Orange', 'Purple', 'Red'];
+    const colors = ['green', 'blue', 'orange', 'purple', 'red'];
 
     return (
         <div className="flex flex-col gap-4">
