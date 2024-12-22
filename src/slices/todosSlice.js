@@ -70,4 +70,6 @@ const todosSlice = createSlice({
 export const { addTodo, deleteTodo, toggleComplete, allCompleted, allIncompleted, allClear, updatedColor } = todosSlice.actions;
 export default todosSlice.reducer;
 
-export const selectTodos = state => state.todosKeyInStore.todos;
+export const selectTodos = (state) => state.todosKeyInStore.todos;
+export const selectPendingCount = (state) => state.todosKeyInStore.todos.filter((todo) => !todo.completed).length;
+export const selectCompletedCount = (state) => state.todosKeyInStore.todos.filter((todo) => todo.completed).length;
